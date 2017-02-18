@@ -27,66 +27,70 @@ Please upload your code to GitHub or bitbucket and post a link to the repo or gi
 #include <stdio.h>
 #include <stdlib.h>
 
+#define debugging 0
+
+void compute(long int n);
+
+/*
+ *    Function to compute whether a number is prime or not.
+ */
 int IsPrime(unsigned int number) {
             if (number <= 3 && number > 1)
-                        return 1;            // as 2 and 3 are prime
+                        return 1;                                                                // as 2 and 3 are prime
             else if (number%2==0 || number%3==0)
-                        return 0;     // check if number is divisible by 2 or 3
+                        return 0;                                                               // check if number is divisible by 2 or 3
             else {
                         unsigned int i;
                         for (i=5; i*i<=number; i+=6) {
                                     if (number % i == 0 || number%(i + 2) == 0)
                                                 return 0;
-                       }
+                        }
                         return 1;
             }
 }
 
-long int fib(int n)
+/*
+ *    Computes the Fibonnaci series for a given 'n' value.
+ */
+void  fib(int n)
 {
-            /* Declare an array to store Fibonacci numbers. */
-           long int f[n+1];
+           long int f[n]; /* Declare an array to store Fibonacci numbers. */
             int i;
 
-            /* 0th and 1st number of the series are 0 and 1*/
-            f[0] = 0;
-            f[1] = 1;
 
-            for (i = 2; i <= n; i++)
+            f[0] = 0; f[1] = 1; /* 0th and 1st number of the series are 0 and 1*/
+
+            for (i = 2; i < n; i++)
             {
-                        /* Add the previous 2 numbers in the series
-                        and store it */
-                        f[i] = f[i-1] + f[i-2];
+                        f[i] = f[i-1] + f[i-2];  /* Add the previous 2 numbers in the series and store it */
+#if debugging
+                        printf("f[%d]",i);
+#endif
+                        compute(f[i]);
             }
-
-            return f[n];
 }
 
+/*
+ *    Function to identify every number as Fizz, Buzz, FizzBuzz, BuzzFizz, Prime and if even just prints the number.
+ */
 void compute(long int n)
 {
-            if(n/3 == 0)
+            if(n%15 == 0)
+                        printf(" FizzBuzz\n");
+            else if(n%3 == 0)
                         printf("Buzz\n");
-            if(n/5 == 0)
-            {
-                        if(n/15 == 0)
-                                    printf("FizzBuzz\n");
-                        else
-                                    printf("Fizz\n");
-
-            }
-            if(IsPrime(n))
-            {
+            else if(n%5 == 0)
+                        printf("Fizz\n");
+            else if(IsPrime(n))
                         printf("BuzzFizz\n");
-            }
             else
                         printf("%ld\n",n);
 }
 
 int main ()
 {
-           long  int n = 5;
-            printf("%ld\n", fib(n));
-            compute(fib(n));
+           long  int n = 10;
+            fib(n);
             getchar();
             return 0;
 }
