@@ -52,21 +52,25 @@ int IsPrime(unsigned int number) {
 /*
  *    Computes the Fibonnaci series for a given 'n' value.
  */
-void  fib(int n)
+
+void fibonacci_numbers(int n)
 {
-           long int f[n]; /* Declare an array to store Fibonacci numbers. */
-            int i;
+            int f1 = 0, f2 = 1, i;
+            int next = 0;
 
+            if (n ==1){
+                        compute(n);
+            }
 
-            f[0] = 0; f[1] = 1; /* 0th and 1st number of the series are 0 and 1*/
-
-            for (i = 2; i < n; i++)
+            for (i = 1; i <n; i++)
             {
-                        f[i] = f[i-1] + f[i-2];  /* Add the previous 2 numbers in the series and store it */
+                        next = f1 + f2;
+                        compute(next);
 #if debugging
-                        printf("f[%d]",i);
+                        printf("%d\n", next);
 #endif
-                        compute(f[i]);
+                        f1 = f2;
+                        f2 = next;
             }
 }
 
@@ -76,7 +80,7 @@ void  fib(int n)
 void compute(long int n)
 {
             if(n%15 == 0)
-                        printf(" FizzBuzz\n");
+                        printf("FizzBuzz\n");
             else if(n%3 == 0)
                         printf("Buzz\n");
             else if(n%5 == 0)
@@ -89,8 +93,8 @@ void compute(long int n)
 
 int main ()
 {
-           long  int n = 10;
-            fib(n);
+            int n = 10;
+            fibonacci_numbers(n);
             getchar();
             return 0;
 }
